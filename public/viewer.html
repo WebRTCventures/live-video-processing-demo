@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<head>
+  <title>Live Video Processing Demo</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
+  <h1>Live Video Processing Demo</h1>
+  <button id="join">Join</button>
+  <div class="container">
+    <div class="videos"></div>
+    <div id="chat" class="chat">
+      <input id="chatText" type="text" placeholder="Write a message..." />
+      <button id="chatBtn">Send</button>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="main.js"></script>
+  <script>
+    const btn = document.getElementById('join');
+
+    btn.addEventListener('click', () => {
+      btn.style.display = 'none';
+      startSignaling('v');
+    });
+  </script>
+</body>
