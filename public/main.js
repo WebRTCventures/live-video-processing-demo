@@ -1,6 +1,7 @@
 const chat = document.getElementById("chat");
 const chatText = document.getElementById("chatText");
 const chatBtn = document.getElementById("chatBtn");
+
 const rtcPeerConnections = {}
 const dataChannels = {}
 const iceServers = {
@@ -8,6 +9,7 @@ const iceServers = {
     { 'urls': 'stun:stun.l.google.com:19302' }
   ]
 }
+
 let myId;
 
 chatBtn.addEventListener('click', () => {
