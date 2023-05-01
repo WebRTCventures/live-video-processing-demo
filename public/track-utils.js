@@ -18,7 +18,7 @@ function showText({
   txtFontSize = '48px',
   txtFont = 'serif',
   textSpeed = 2,
-  bgColor = 'black',
+  bgColor = '#9c28b8',
   bgPadding = 10,
   position = 'top'
 }) {
@@ -31,9 +31,9 @@ function showText({
   const bgPositionY = position === 'bottom' 
     ? height - (intTxtFontSize + bgPadding + 5) 
     : 5;
-  const txtPositionY = position === 'top' 
+  const txtPositionY = position === 'bottom' 
     ? height - (intTxtFontSize + Math.floor(bgPadding/2) + 5) 
-    : 5 + Math.floor(bgPadding/2);
+    : 5 + intTxtFontSize;
 
   let x = width + 100;
   function transform(videoFrame, controller) {
@@ -46,6 +46,9 @@ function showText({
     ctx.fillText(text, x, txtPositionY);
 
     x -= textSpeed;
+    if (x <= (0 - 100 - text.length * 20)) {
+      x = width + 100
+    }
     const newFrame = new VideoFrame(canvas, { timestamp: videoFrame.timestamp });
 
     videoFrame.close();

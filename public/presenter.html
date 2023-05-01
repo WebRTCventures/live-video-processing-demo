@@ -30,7 +30,7 @@
     announcementBtn.addEventListener('click', () => {
       const pTrack = showText({ 
         text: announcement.value,
-        track: localVideo.srcObject.getVideoTracks()[0]
+        track: originalStream.getVideoTracks()[0]
       });
 
       localVideo.srcObject = new MediaStream([pTrack]);
