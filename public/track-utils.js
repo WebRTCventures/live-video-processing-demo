@@ -67,3 +67,27 @@ function showText({
     controller.enqueue(newFrame);
   }
 }
+
+function showImage({ image }) {
+  const canvas = new OffscreenCanvas(1, 1);
+  const ctx = canvas.getContext('2d');
+  const img = new Image();
+  img.src = URL.createObjectURL(image);
+
+  return function transform(frame, controller) {
+    const width = frame.displayWidth;
+    const height = frame.displayHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    ctx.clearRect(0, 0, width, height);
+    ctx.drawImage(frame, 0, 0, width, height);
+    ctx.drawImage(img, 20, 10);
+
+    const timestamp = frame.timestamp;
+    frame.close();
+
+    const newFrame = new VideoFrame(canvas, { timestamp });
+    controller.enqueue(newFrame);
+  }
+}

@@ -12,8 +12,10 @@
       <video id="localVideo" autoplay></video>
     </div>
     <div id="chat" class="chat">
-      <input id="announcement" type="text" placeholder="Make an anoouncement..."/>
-      <button id="announcementBtn">Send Announcement</button>
+      <input type="file" id="image" placeholder="Add an image..." accept="image/*" />
+      <input id="announcement" type="text" placeholder="Make an anoouncement..." />
+      <button id="announcementBtn">Announce</button>
+      <button id="clsAnnouncementBtn">Clear</button>
       <input id="chatText" type="text" placeholder="Write a message..." />
       <button id="chatBtn">Send</button>
     </div>
@@ -48,13 +50,24 @@
       });
 
     announcementBtn.addEventListener('click', () => {
-      transformFn = showText({ 
+      transformFn = showText({
         text: announcement.value,
         txtInitialX: localVideo.
-                        srcObject.
-                        getVideoTracks()[0].
-                        getSettings()['width']
+          srcObject.
+          getVideoTracks()[0].
+          getSettings()['width']
       });
+    });
+
+    clsAnnouncementBtn.addEventListener('click', () => {
+      transformFn = cleanStream();
+      announcement.value = '';
+      image.value = '';
+    });
+
+    image.addEventListener('change', () => {
+      console.log('files added', image.files);
+      transformFn = showImage({image: image.files[0]});
     });
   </script>
 </body>
