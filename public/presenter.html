@@ -25,27 +25,20 @@
     const localVideo = document.getElementById("localVideo");
     const announcement = document.getElementById('announcement');
     const announcementBtn = document.getElementById('announcementBtn');
-    let originalStream;
-
-    announcementBtn.addEventListener('click', () => {
-      const pTrack = showText({ 
-        text: announcement.value,
-        track: originalStream.getVideoTracks()[0]
-      });
-
-      localVideo.srcObject = new MediaStream([pTrack]);
-      for(p in rtcPeerConnections) {
-        const sender = rtcPeerConnections[p].getSenders()[0];
-        sender.replaceTrack(pTrack);
-      }
-    });
+    let transformFn;
 
     navigator.mediaDevices
       .getUserMedia({ audio: false, video: true })
       .then((stream) => {
         /* use the stream */
-        originalStream = stream;
-        localVideo.srcObject = stream;
+        transformFn = cleanStream();
+
+        const pTrack = createProcessedTrack({
+          track: stream.getVideoTracks()[0],
+          transform: (frame, controller) => transformFn(frame, controller)
+        });
+
+        localVideo.srcObject = new MediaStream([pTrack]);
         styleVideos();
         startSignaling('p');
       })
@@ -53,5 +46,15 @@
         /* handle the error */
         console.error("An error occurred:", err)
       });
+
+    announcementBtn.addEventListener('click', () => {
+      transformFn = showText({ 
+        text: announcement.value,
+        txtInitialX: localVideo.
+                        srcObject.
+                        getVideoTracks()[0].
+                        getSettings()['width']
+      });
+    });
   </script>
 </body>
