@@ -45,7 +45,7 @@ function showText({
       ? height - (intTxtFontSize + bgPadding + 5)
       : 5;
     const txtPositionY = position === 'bottom'
-      ? height - (intTxtFontSize + Math.floor(bgPadding / 2) + 5)
+      ? height - (Math.floor(bgPadding / 2) + 10)
       : 5 + intTxtFontSize;
 
     ctx.clearRect(0, 0, width, height);
@@ -68,7 +68,13 @@ function showText({
   }
 }
 
-function showImage({ image }) {
+function showImage({ 
+  image,
+  imgPositionX = 40,
+  imgPositionY = 10,
+  imgWidth = 450,
+  imgHeight = 320
+}) {
   const canvas = new OffscreenCanvas(1, 1);
   const ctx = canvas.getContext('2d');
   const img = new Image();
@@ -82,7 +88,7 @@ function showImage({ image }) {
 
     ctx.clearRect(0, 0, width, height);
     ctx.drawImage(frame, 0, 0, width, height);
-    ctx.drawImage(img, 20, 10);
+    ctx.drawImage(img, imgPositionX, imgPositionY, imgWidth, imgHeight);
 
     const timestamp = frame.timestamp;
     frame.close();

@@ -34,24 +34,24 @@ h1 {
   overflow-y: auto;
 }
 .chat p {
-  margin: 0;
+  margin: 5px;
   padding: 5px;
   border-radius: 5px;
   background-color: #f2f2f2;
   white-space: pre;
 }
 .chat input[type="text"] {
-  width: 80%;
+  width: 100%;
   padding: 10px;
   border: none;
   border-radius: 5px;
-  margin-right: 5px;
+  margin: 5px;
   box-sizing: border-box;
 }
 .chat button {
-  width: 20%;
   padding: 10px;
-  background-color: #4CAF50;
+  margin: 5px;
+  background-color: #9c28b8;
   color: white;
   border: none;
   border-radius: 5px;
