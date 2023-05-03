@@ -15,12 +15,14 @@
       <input type="file" id="image" placeholder="Add an image..." accept="image/*" />
       <input id="announcement" type="text" placeholder="Make an anoouncement..." />
       <button id="announcementBtn">Announce</button>
+      <button id="qrBtn">Make QR</button>
       <button id="clsAnnouncementBtn">Clear</button>
       <input id="chatText" type="text" placeholder="Write a message..." />
       <button id="chatBtn">Send</button>
     </div>
   </div>
   <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="track-utils.js"></script>
   <script src="main.js"></script>
   <script>
@@ -57,6 +59,7 @@
           getVideoTracks()[0].
           getSettings()['width']
       });
+      image.value = '';
     });
 
     clsAnnouncementBtn.addEventListener('click', () => {
@@ -66,8 +69,13 @@
     });
 
     image.addEventListener('change', () => {
-      console.log('files added', image.files);
       transformFn = showImage({image: image.files[0]});
+      announcement.value = '';
+    });
+
+    qrBtn.addEventListener('click', () => {
+      transformFn = showQr({ text: announcement.value });
+      image.value = '';
     });
   </script>
 </body>

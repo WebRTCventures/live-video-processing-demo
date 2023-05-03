@@ -24,7 +24,7 @@ function showText({
   txtFontSize = '48px',
   txtFont = 'serif',
   textSpeed = 2,
-  bgColor = '#9c28b8',
+  bgColor = '#08b9a6',
   bgPadding = 10,
   position = 'top'
 }) {
@@ -89,6 +89,45 @@ function showImage({
     ctx.clearRect(0, 0, width, height);
     ctx.drawImage(frame, 0, 0, width, height);
     ctx.drawImage(img, imgPositionX, imgPositionY, imgWidth, imgHeight);
+
+    const timestamp = frame.timestamp;
+    frame.close();
+
+    const newFrame = new VideoFrame(canvas, { timestamp });
+    controller.enqueue(newFrame);
+  }
+}
+
+function showQr({
+  text,
+  qrWidth = 256,
+  qrHeight = 256,
+  colorDark = '#000000',
+  colorLight = '#FFFFFF',
+  positionX = 40,
+  positionY = 10
+}) {
+  const canvas = new OffscreenCanvas(1, 2);
+  const ctx = canvas.getContext('2d');
+  const qrDiv = document.createElement('div');
+  
+  new QRCode(qrDiv, {
+    text,
+    width: qrWidth,
+    height: qrHeight,
+    colorDark,
+    colorLight
+  });
+
+  return function transform(frame, controller) {
+    const width = frame.displayWidth;
+    const height = frame.displayHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    ctx.clearRect(0, 0, width, height);
+    ctx.drawImage(frame, 0, 0, width, height);
+    ctx.drawImage(qrDiv.querySelector('canvas'), positionX, positionY, qrWidth, qrHeight);
 
     const timestamp = frame.timestamp;
     frame.close();
