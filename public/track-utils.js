@@ -70,7 +70,7 @@ function showText({
 
 function showImage({ 
   image,
-  imgPositionX = 40,
+  imgPositionX = 10,
   imgPositionY = 10,
   imgWidth = 450,
   imgHeight = 320
@@ -104,7 +104,7 @@ function showQr({
   qrHeight = 256,
   colorDark = '#000000',
   colorLight = '#FFFFFF',
-  positionX = 40,
+  positionX = 10,
   positionY = 10
 }) {
   const canvas = new OffscreenCanvas(1, 2);
